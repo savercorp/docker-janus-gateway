@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 # Install Dependencies
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y tzdata
+RUN apt-get update -y && apt-get install -y tzdata
 ENV TZ Asia/Tokyo
 RUN apt-get install -y \
     git wget cmake \
@@ -48,12 +48,8 @@ RUN git clone https://github.com/meetecho/janus-gateway.git -b v0.10.7 --depth 1
     ./autogen.sh && \
     ./configure --prefix=/opt/janus && \
     make && make install && make configs && \
-    cp -r ~/janus-gateway/html /var/www/
+    cp -r ~/janus-gateway/html /var/www/ && \
+    sed -i -e 's/gatewayCallbacks\.server/`ws:\/\/${window.location.hostname}:8188`/g' /var/www/html/janus.js
 COPY janus.jcfg /opt/janus/etc/janus/janus.jcfg
-COPY janus.js /var/www/html/janus.js
 
-# Install janus-cloud
-RUN pip3 install janus-cloud
-COPY janus-sentinel.yml /opt/janus-cloud/conf/janus-sentinel.yml
-
-ENTRYPOINT nginx && /opt/janus/bin/janus & janus-sentinel
+ENTRYPOINT nginx && /opt/janus/bin/janus

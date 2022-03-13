@@ -10,7 +10,7 @@ Janus Gateway Docker image.
 
 ```bash
 $ docker pull registry.gitlab.saver.jp/saver/container/janus-gateway
-$ docker run -d -p "8088:8088" -p "80:80" --name=sfu registry.gitlab.saver.jp/saver/container/janus-gateway
+$ docker run -d -p "8188:8188" -p "80:80" --name=sfu registry.gitlab.saver.jp/saver/container/janus-gateway
 ```
 
 ### docker-compose
@@ -22,7 +22,7 @@ services:
   sfu:
     image: registry.gitlab.saver.jp/saver/container/janus-gateway
     ports:
-      - 8088:8088
+      - 8188:8188
       - 80:80
 ```
 
@@ -40,7 +40,7 @@ Mount config like this.
 ```bash
 $ docker pull registry.gitlab.saver.jp/saver/container/janus-gateway
 $ docker run -d \
-  -p "8088:8088" \
+  -p "8188:8188" \
   -v "$(pwd)/conf/janus.jcfg:/opt/janus/etc/janus/janus.jcfg" \
   -v "$(pwd)/conf/janus.plugin.videoroom.jcfg:/opt/janus/etc/janus/janus.plugin.videoroom.jcfg" \
   --name=sfu \
@@ -56,7 +56,7 @@ services:
   sfu:
     image: registry.gitlab.saver.jp/saver/container/janus-gateway
     ports:
-      - 8088:8088
+      - 8188:8188
     volumes:
       - ./conf/janus.jcfg:/opt/janus/etc/janus/janus.jcfg
       - ./conf/janus.plugin.videoroom.jcfg:/opt/janus/etc/janus/janus.plugin.videoroom.jcfg
