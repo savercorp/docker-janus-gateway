@@ -39,15 +39,21 @@ RUN git clone https://github.com/sctplab/usrsctp ~/usrsctp && \
     ./configure --prefix=/usr --disable-programs --disable-inet --disable-inet6 && \
     make && make install
 
+# Install nginx
+RUN apt-get install -y nginx
+
 # Install janus-gateway
 RUN git clone https://github.com/meetecho/janus-gateway.git -b v0.10.7 --depth 1 ~/janus-gateway && \
     cd ~/janus-gateway && \
     ./autogen.sh && \
     ./configure --prefix=/opt/janus && \
-    make && make install && make configs
-
-# Install nginx
-RUN apt-get install -y nginx && \
+    make && make install && make configs && \
     cp -r ~/janus-gateway/html /var/www/
+COPY janus.jcfg /opt/janus/etc/janus/janus.jcfg
+COPY janus.js /var/www/html/janus.js
 
-CMD nginx && /opt/janus/bin/janus
+# Install janus-cloud
+RUN pip3 install janus-cloud
+COPY janus-sentinel.yml /opt/janus-cloud/conf/janus-sentinel.yml
+
+ENTRYPOINT nginx && /opt/janus/bin/janus & janus-sentinel
