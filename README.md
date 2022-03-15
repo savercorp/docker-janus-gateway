@@ -9,7 +9,6 @@ Janus Gateway Docker image.
 ### Docker
 
 ```bash
-$ docker pull registry.gitlab.saver.jp/saver/container/janus-gateway
 $ docker run -d -p "8188:8188" -p "80:80" --name=sfu registry.gitlab.saver.jp/saver/container/janus-gateway
 ```
 
@@ -38,7 +37,6 @@ Mount config like this.
 ### Docker
 
 ```bash
-$ docker pull registry.gitlab.saver.jp/saver/container/janus-gateway
 $ docker run -d \
   -p "8188:8188" \
   -v "$(pwd)/conf/janus.jcfg:/opt/janus/etc/janus/janus.jcfg" \
