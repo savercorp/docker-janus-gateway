@@ -1,9 +1,9 @@
 FROM ubuntu:20.04
 
 # Install Dependencies
-RUN apt-get update -y && apt-get install -y tzdata
+RUN apt-get autoremove && apt-get clean && apt-get update -y && apt-get install -y tzdata
 ENV TZ Asia/Tokyo
-RUN apt-get install -y \
+RUN apt-get autoremove && apt-get clean && apt-get update -y && apt-get install -y \
     git wget cmake \
     libmicrohttpd-dev libjansson-dev \
     libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
