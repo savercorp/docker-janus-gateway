@@ -63,3 +63,20 @@ services:
 ```bash
 $ docker-compose up -d
 ```
+
+## Build image
+
+### Create builder instance
+
+```bash
+$ docker buildx create --name mybuilder --use
+$ docker buildx inspect --bootstrap
+```
+
+### Build & Push image
+
+```bash
+$ docker buildx build --platform=linux/arm64,linux/amd64 --push \
+  -t registry.gitlab.saver.jp/saver/container/janus-gateway \
+  -t registry.gitlab.saver.jp/saver/container/janus-gateway:0.10.7 .
+```
