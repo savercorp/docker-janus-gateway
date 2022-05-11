@@ -3,16 +3,17 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install Dependencies
-RUN apt-get autoremove && apt-get clean && apt-get update -y && apt-get install -y \
+RUN apt-get update -y && apt-get install -y \
     git wget cmake \
     libmicrohttpd-dev libjansson-dev \
     libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
     libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
-    libconfig-dev pkg-config gengetopt libtool automake
+    libconfig-dev pkg-config gengetopt libtool automake \
+    python3-pip \
+    nginx
 
 # Install libnice
-RUN apt-get install -y python3-pip && \
-    pip3 install meson ninja && \
+RUN pip3 install meson ninja && \
     git clone https://gitlab.freedesktop.org/libnice/libnice ~/libnice && \
     cd ~/libnice && \
     meson --prefix=/usr build && ninja -C build && ninja -C build install
@@ -38,9 +39,6 @@ RUN git clone https://github.com/sctplab/usrsctp ~/usrsctp && \
     ./bootstrap && \
     ./configure --prefix=/usr --disable-programs --disable-inet --disable-inet6 && \
     make && make install
-
-# Install nginx
-RUN apt-get install -y nginx
 
 # Install janus-gateway
 RUN git clone https://github.com/meetecho/janus-gateway.git -b v0.10.7 --depth 1 ~/janus-gateway && \
