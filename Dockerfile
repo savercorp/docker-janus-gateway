@@ -1,8 +1,8 @@
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install Dependencies
-RUN apt-get autoremove && apt-get clean && apt-get update -y && apt-get install -y tzdata
-ENV TZ Asia/Tokyo
 RUN apt-get autoremove && apt-get clean && apt-get update -y && apt-get install -y \
     git wget cmake \
     libmicrohttpd-dev libjansson-dev \
