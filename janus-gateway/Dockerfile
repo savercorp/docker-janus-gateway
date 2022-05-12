@@ -9,8 +9,7 @@ RUN apt-get update -y && apt-get install -y \
     libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
     libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
     libconfig-dev pkg-config gengetopt libtool automake \
-    python3-pip \
-    nginx
+    python3-pip
 
 # Install libnice
 RUN pip3 install meson ninja && \
@@ -45,9 +44,17 @@ RUN git clone https://github.com/meetecho/janus-gateway.git -b v0.10.7 --depth 1
     cd ~/janus-gateway && \
     ./autogen.sh && \
     ./configure --prefix=/opt/janus && \
-    make && make install && make configs && \
-    cp -r ~/janus-gateway/html /var/www/ && \
-    sed -i -e 's/gatewayCallbacks\.server/`ws:\/\/${window.location.hostname}:8188`/g' /var/www/html/janus.js
+    make && make install && make configs
 COPY janus.jcfg /opt/janus/etc/janus/janus.jcfg
 
-ENTRYPOINT nginx && /opt/janus/bin/janus
+# Create user
+ARG user=janus
+ARG group=janus
+ARG uid=1000
+ARG gid=1000
+RUN groupadd -g ${gid} ${group} && \
+    useradd -u ${uid} -g ${gid} -m ${user}
+USER ${user}
+
+EXPOSE 8188
+ENTRYPOINT /opt/janus/bin/janus

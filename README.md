@@ -7,7 +7,7 @@ Docker image for [Janus Gateway](https://github.com/meetecho/janus-gateway).
 ### docker command
 
 ```bash
-$ docker run -d -p "8188:8188" -p "80:80" --name=janus saverops/janus-gateway
+$ docker run -d -p "8188:8188" --name=janus saverops/janus-gateway
 ```
 
 ### docker-compose
@@ -20,7 +20,6 @@ services:
     image: saverops/janus-gateway
     ports:
       - 8188:8188
-      - 80:80
 ```
 
 ```bash
