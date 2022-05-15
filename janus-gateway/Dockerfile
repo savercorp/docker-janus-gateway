@@ -40,7 +40,7 @@ RUN git clone https://github.com/sctplab/usrsctp ~/usrsctp && \
     make && make install
 
 # Install janus-gateway
-RUN git clone https://github.com/meetecho/janus-gateway.git -b 0.10.7 --depth 1 ~/janus-gateway && \
+RUN git clone https://github.com/meetecho/janus-gateway.git -b v0.10.7 --depth 1 ~/janus-gateway && \
     cd ~/janus-gateway && \
     ./autogen.sh && \
     ./configure --prefix=/opt/janus && \
