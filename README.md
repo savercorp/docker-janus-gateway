@@ -62,3 +62,7 @@ services:
 ```bash
 $ docker-compose up -d
 ```
+
+## Contributing
+
+Please read through our [contributing guidelines](https://github.com/savercorp/docker-janus-gateway/blob/main/.github/CONTRIBUTING.md).
