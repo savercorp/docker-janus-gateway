@@ -1,7 +1,7 @@
 # docker-janus-gateway
 
 Docker image for [Janus Gateway](https://github.com/meetecho/janus-gateway).  
-Maintained by [Saver Corporation](https://github.com/savercorp/docker-janus-gateway).
+Maintained by [Saver Corporation](https://github.com/savercorp).
 
 ## Supported tags
 
