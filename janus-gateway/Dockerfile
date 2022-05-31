@@ -57,4 +57,4 @@ RUN groupadd -g ${gid} ${group} && \
 USER ${user}
 
 EXPOSE 8188
-ENTRYPOINT /opt/janus/bin/janus
+ENTRYPOINT /opt/janus/bin/janus -L /dev/null
