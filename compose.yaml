@@ -10,5 +10,7 @@ services:
   janus:
     image: saverops/janus-gateway
     build: janus-gateway
+    environment:
+      - TZ=Asia/Tokyo
     ports:
       - 8188:8188
