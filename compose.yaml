@@ -3,6 +3,8 @@ version: "3"
 services:
   nignx:
     build: nginx
+    depends_on:
+      - janus
     ports:
       - 80:80
   janus:
