@@ -3,10 +3,14 @@ version: "3"
 services:
   nignx:
     build: nginx
+    depends_on:
+      - janus
     ports:
       - 80:80
   janus:
     image: saverops/janus-gateway
     build: janus-gateway
+    environment:
+      - TZ=Asia/Tokyo
     ports:
       - 8188:8188
