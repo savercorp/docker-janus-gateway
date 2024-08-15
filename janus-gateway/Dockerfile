@@ -1,18 +1,20 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV PATH="/root/.local/bin:$PATH"
+
 # Install Dependencies
 RUN apt-get update -y && apt-get install -y \
-    git wget cmake \
+    git wget cmake build-essential \
     libmicrohttpd-dev libjansson-dev \
     libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
     libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
     libconfig-dev pkg-config gengetopt libtool automake \
-    python3-pip
+    pipx
 
 # Install libnice
-RUN pip3 install meson ninja && \
+RUN pipx install meson ninja && \
     git clone https://gitlab.freedesktop.org/libnice/libnice ~/libnice && \
     cd ~/libnice && \
     meson --prefix=/usr build && ninja -C build && ninja -C build install
@@ -50,8 +52,8 @@ COPY janus.jcfg /opt/janus/etc/janus/janus.jcfg
 # Create user
 ARG user=janus
 ARG group=janus
-ARG uid=1000
-ARG gid=1000
+ARG uid=1001
+ARG gid=1001
 RUN groupadd -g ${gid} ${group} && \
     useradd -u ${uid} -g ${gid} -m ${user}
 USER ${user}
